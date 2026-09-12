@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Zöhre Tesettür</title>
+    <style>
+        body { font-family: sans-serif; background: #f9f6f0; padding: 20px; margin: 0; }
+        .header { display: flex; justify-content: space-between; align-items: center; background: #4a3b32; color: white; padding: 15px 30px; }
+        .grid { display: flex; gap: 20px; margin-top: 30px; flex-wrap: wrap; justify-content: center; }
+        .kart { background: white; padding: 15px; border-radius: 8px; text-align: center; width: 240px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .kart img { width: 100%; border-radius: 5px; }
+        button { background: #4a3b32; color: white; border: none; padding: 10px; cursor: pointer; width: 100%; margin-top: 10px; border-radius: 4px; }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>Zöhre Tesettür</h1>
+        <a href="/admin" style="color:white; text-decoration:none; font-weight:bold;">Admin Paneli Girişi</a>
+    </div>
+
+    <h2 style="text-align:center; margin-top:30px;">Yeni Sezon Tesettür Koleksiyonu</h2>
+
+    <div class="grid">
+        {% for urun in urunler %}
+        <div class="kart">
+            <img src="{{ urun.resim }}">
+            <h3>{{ urun.ad }}</h3>
+            <p style="color:#8c6d58; font-size:18px;"><strong>{{ urun.fiyat }} TL</strong></p>
+            
+            <form action="/siparis-ver" method="POST">
+                <input type="hidden" name="urun_ad" value="{{ urun.ad }}">
+                <input type="hidden" name="fiyat" value="{{ urun.fiyat }}">
+                <input type="text" name="ad_soyad" placeholder="Adınız Soyadınız" required style="width:90%; margin-bottom:8px; padding:6px;"><br>
+                <input type="text" name="telefon" placeholder="Telefonunuz" required style="width:90%; margin-bottom:8px; padding:6px;"><br>
+                <button type="submit">Sipariş Ver (Havale/EFT)</button>
+            </form>
+        </div>
+        {% endfor %}
+    </div>
+
+</body>
+</html>
