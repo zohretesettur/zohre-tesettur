@@ -3,8 +3,8 @@
 app = Flask(__name__)
 
 ADMIN_HESAPLARI = {
-    "yonetici1": "12345",
-    "yonetici2": "54321"
+    "Devil": "0553",
+    "Azrail": "0553"
 }
 
 urunler = [
@@ -66,3 +66,18 @@ def odeme_onayla(siparis_id, admin_adi):
 
 if __name__ == '__main__':
     app.run(debug=True)
+@app.route('/admin/urun-ekle', methods=['POST'])
+def urun_ekle():
+    urun_adi = request.form.get('urun_adi')
+    fiyat = request.form.get('fiyat')
+    resim_url = request.form.get('resim_url')
+    
+    yeni_urun = {
+        'id': len(urunler) + 1,
+        'ad': urun_adi,
+        'fiyat': fiyat,
+        'resim': resim_url
+    }
+    urunler.append(yeni_urun)
+    
+    return redirect(url_for('admin'))
